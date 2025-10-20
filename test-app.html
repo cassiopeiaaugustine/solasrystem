@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar System Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        #canvas {
+            display: block;
+        }
+        #info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div id="info">
+        <h3>Solar System 3D Test</h3>
+        <p>If you can see this and a 3D scene, the app is working!</p>
+    </div>
+    
+    <script type="module">
+        import * as THREE from 'three'
+        
+        // Simple test scene
+        const scene = new THREE.Scene()
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas') })
+        
+        renderer.setSize(window.innerWidth, window.innerHeight)
+        renderer.setClearColor(0x000011)
+        
+        // Add a simple sphere
+        const geometry = new THREE.SphereGeometry(1, 32, 32)
+        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+        const sphere = new THREE.Mesh(geometry, material)
+        scene.add(sphere)
+        
+        camera.position.z = 5
+        
+        function animate() {
+            requestAnimationFrame(animate)
+            sphere.rotation.x += 0.01
+            sphere.rotation.y += 0.01
+            renderer.render(scene, camera)
+        }
+        
+        animate()
+        
+        console.log('Test app loaded successfully!')
+    </script>
+</body>
+</html>
